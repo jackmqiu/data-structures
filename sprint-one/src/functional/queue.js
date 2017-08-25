@@ -2,24 +2,34 @@ var Queue = function() {
   var someInstance = {};
 
   // Use an object with numeric keys to store values
-  var storage = {};
+
   var count = 0;
+  var head = null;
+  var tail = null;
   // Implement the methods below
 
   someInstance.enqueue = function(value) {
-    for (index in storage){
-      storage[count - index] = storage[count - index - 1];
+    var node = new queueNode(value);
+    if(head === null){
+      head = node;
+    }else{
+      tail.next = node;
     }
+    tail = node;
     count++;
-    storage[0] = value;
   };
 
   someInstance.dequeue = function() {
     if(count === 0){
       return;
     }
+    if(count === 1){
+      tail = null;
+    }
+    var returnValue = head.value;
+    head = head.next;
     count--;
-    return storage[count];
+    return returnValue;
   };
 
   someInstance.size = function() {
@@ -28,3 +38,8 @@ var Queue = function() {
 
   return someInstance;
 };
+
+var queueNode = function(value){
+  this.value = value;
+  this.next = null;
+}
