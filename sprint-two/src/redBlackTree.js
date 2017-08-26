@@ -126,7 +126,12 @@ RedBlackTree.prototype.leftRotation = function() {
   this.parent = currentGrandfather//assign node parent to grandparent
   currentParent.parent = this;//current parent's parent is now node
   if(currentGrandfather){
-    currentGrandfather.right = this;
+    if(currentGrandfather.right === currentParent){
+      currentGrandfather.right = this;
+    }else{
+      currentGrandfather.left = this;
+    }
+
   }
   this.left = currentParent;
   this.uncle = currentParent.uncle;
@@ -144,7 +149,11 @@ RedBlackTree.prototype.rightRotation = function() {
   this.parent = currentGrandfather//assign node parent to grandparent
   currentParent.parent = this;//current parent's parent is now node
   if(currentGrandfather){
-    currentGrandfather.left = this;//
+    if(currentGrandfather.left === currentParent){
+      currentGrandfather.left = this;
+    }else{
+      currentGrandfather.right = this;
+    }
   }
   this.right = currentParent;
   this.uncle = currentParent.uncle;
